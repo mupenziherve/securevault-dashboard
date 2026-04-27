@@ -39,8 +39,3 @@ export default function TreeNode({ node, onSelect, selected, searchResult }) {
             onSelect={onSelect}
             selected={selected}
             searchResult={searchResult}
-          />
-        ))}
-    </div>
-  );
-}
