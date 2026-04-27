@@ -3,14 +3,14 @@
 ## Overview
 A high-performance recursive file explorer built for SecureVault Inc. to navigate deeply nested file systems with search, selection, and keyboard navigation support.
 
----
+
 
 ## Tech Stack
 - Next.js
 - React
 - Tailwind CSS
 
----
+
 
 ## Features
 
@@ -40,7 +40,6 @@ A high-performance recursive file explorer built for SecureVault Inc. to navigat
 ## Recursive Strategy
 The file explorer uses a recursive TreeNode component. Each node renders itself and its children, allowing the UI to support unlimited nesting depth.
 
----
 
 ## Setup Instructions
 ```bash
