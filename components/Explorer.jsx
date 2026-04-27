@@ -1,11 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import TreeNode from "./TreeNode";
 import data from "../data/data.json";
+import PropertiesPanel from "./PropertiesPanel";
+import flattenTree from "../lib/flattenTree";
+import useKeyboardNavigation from "../hooks/useKeyboardNavigation";
 
 export default function Explorer() {
   const [selected, setSelected] = useState(null);
+  const [expandedMap, setExpandedMap] = useState({});
+
+  const flatList = useMemo(() => {
+    return flattenTree(data, expandedMap);
+  }, [expandedMap]);
+
+  useKeyboardNavigation({
+    flatList,
+    setSelected,
+    setExpandedMap,
+    expandedMap,
+  });
 
   return (
     <div className="flex h-screen bg-black text-white">
@@ -16,30 +31,13 @@ export default function Explorer() {
             node={node}
             onSelect={setSelected}
             selected={selected}
+            expandedMap={expandedMap}
+            setExpandedMap={setExpandedMap}
           />
         ))}
       </div>
 
-      <div className="w-1/2 p-6">
-        <div className="text-xl mb-4">File Properties</div>
-
-        {selected ? (
-          <div className="space-y-2">
-            <div>
-              <span className="text-gray-400">Name:</span> {selected.name}
-            </div>
-            <div>
-              <span className="text-gray-400">Type:</span> {selected.type}
-            </div>
-            <div>
-              <span className="text-gray-400">Size:</span>{" "}
-              {selected.size || "Folder"}
-            </div>
-          </div>
-        ) : (
-          <div className="text-gray-500">Select a file to view details</div>
-        )}
-      </div>
+      <PropertiesPanel selected={selected} />
     </div>
   );
 }
